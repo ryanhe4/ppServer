@@ -1,8 +1,12 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}
+#[macro_use]
+extern crate diesel;
+
+pub mod schema;
+pub mod connection;
+pub mod models;
+pub mod queries;
+pub mod repository;
+
+use diesel::MysqlConnection;
+
+pub type Repo = connection::Repo<MysqlConnection>;
