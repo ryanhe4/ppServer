@@ -1,11 +1,15 @@
 use diesel::result::Error;
-use diesel::RunQueryDsl;
+use diesel::prelude::*;
 use crate::models::{NewRand, UtilRand};
-use crate::schema::util_rand as util_rand_table;
+use crate::schema::util_rand;
 use crate::Repo;
 
-pub fn insert(repo: &Repo, util_rand: NewRand) -> Result<UtilRand, Error> {
-  diesel::insert_into(util_rand_table::table)
-    .values(&util_rand)
-    .get_result(&repo.conn())
+pub fn insert(repo: &Repo, new_util_rand: NewRand) -> Result<UtilRand, Error> {
+  use util_rand::dsl::{util_rand as all_util_rand, id};
+
+  diesel::insert_into(all_util_rand)
+    .values(&new_util_rand)
+    .execute(&repo.conn())
+    .expect("Error While Saving Rand_Values");
+  all_util_rand.order(id.desc()).first(&repo.conn())
 }
