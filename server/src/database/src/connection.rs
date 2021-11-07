@@ -23,7 +23,6 @@ impl<T> Repo<T>
     let connection_pool = builder
       .build(manager)
       .expect("Failed to create pool.");
-    println!("Created Connection Pool");
     Repo { connection_pool }
   }
   // getter

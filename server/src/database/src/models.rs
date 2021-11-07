@@ -19,7 +19,6 @@ pub struct UtilRand {
 #[derive(Insertable, Deserialize, Debug, Clone)]
 #[table_name = "util_rand"]
 pub struct NewRand {
-  pub id: i32,
   pub value1: i32,
   pub value2: i32,
   pub value3: i32,
